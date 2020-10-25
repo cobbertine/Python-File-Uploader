@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <title>PyUp</title>
+        <script src="./PyUp.js"></script>
+        <link rel="stylesheet", type="text/css", href="./PyUp.css">
+    </head>
+    <body>
+        <table style="width:100%; height:100%">
+            <tr style="height:100%">
+                <td style="height:100%; text-align:center;">
+                    <div class="ui_info">
+                        PyUp
+                    </div>
+                    <div>
+                        <input id="file_picker" name="file_picker" class="input_element" type="file" multiple onchange="saveSelectedIMGs()">
+                        <label id="file_picker_label" class="button_ui" for="file_picker">SELECT FILES</label>
+
+                        <input id="file_uploader" class="input_element" type="button" disabled onclick="uploadButtonClick()">
+                        <label id="upload_button" class="button_ui disabled_button_ui" for="file_uploader">UPLOAD</label>
+                    </div>
+                    <div class="ui_info"">
+                        0 FILES SELECTED
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

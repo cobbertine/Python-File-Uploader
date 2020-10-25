@@ -1,0 +1,40 @@
+html {
+    font-size: 62.5%;
+    /*Needed twice to fix font size change: https://github.com/necolas/normalize.css/issues/519#issuecomment-197131966*/
+    font-family: monospace, monospace; 
+}
+
+body {
+	background-color: black;
+}
+
+button {
+	border-style: none;
+}
+
+.input_element {
+	display: none;
+}
+
+.button_ui {
+    display: inline-block;
+    font: bold 3rem sans-serif;
+    max-width: 30rem;
+    min-width: 30rem;
+    padding: 0.6rem 1.2rem;
+    margin: 1.5rem 1.5rem;
+	cursor: pointer;
+	text-shadow: 0.2rem 0 0 #000, 0 -0.2rem 0 #000, 0 0.2rem 0 #000, -0.2rem 0 0 #000;
+	background-color: rgb(0, 207, 106);
+	color: white;
+}
+
+.disabled_button_ui {
+	background-color: rgb(0, 107, 6);
+	color: grey;
+}
+
+.ui_info {
+	color: white;
+	font: bold 3rem sans-serif;
+}
