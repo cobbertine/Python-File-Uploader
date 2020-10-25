@@ -34,7 +34,7 @@ Note: You must determine yourself what IP address your computer has on your LAN.
 Example:
 
 ```
-http://192.168.1.100:10000/upload
+http://192.168.1.100:9337/upload
 ```
 
 ## Client-side setup
