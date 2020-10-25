@@ -69,6 +69,10 @@ Note: This .exe was created by using "nuitka" which compiles python scripts into
 * Open up a file explorer and navigate to the downloaded file
 * Unzip the file
 * View the unzipped files 
-* Hold down shift and right click anywhere in the window
-* In the pop-up menu, an item saying "Open Powershell/Command Prompt window here" should be available. Click it.
-* Type ".\PyFiUp.exe" followed by the parameters described in the **Usage** section
+* Then decide:
+    * A) 
+        * Double click the .exe, in which case all default values will be used (Bind to all interfaces, port 9337, output in ./uploads)
+    * B) 
+        * Hold down shift and right click anywhere in the window
+        * In the pop-up menu, an item saying "Open Powershell/Command Prompt window here" should be available. Click it.
+        * Type ".\PyFiUp.exe" followed by the parameters described in the **Usage** section
