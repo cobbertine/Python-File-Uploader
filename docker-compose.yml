@@ -1,0 +1,11 @@
+version: "3.7"
+services: 
+    webapp :
+        build: 
+            context: .
+        ports: 
+          - "9337:9337"
+        image: pyfiup:latest
+        container_name: pyfiup
+        volumes:
+          - ./uploads:/docker_mount_uploads
