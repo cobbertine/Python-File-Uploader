@@ -1,4 +1,4 @@
-# PyFiUp - (Py)THON (Fi)LE (Up)LOADER
+# PyFiUp - (Py)thon (Fi)le (Up)loader
 
 ## Requirements
 This was developed with Python 3.8.2; any OS running this version of Python should work.
