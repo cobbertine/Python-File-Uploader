@@ -12,13 +12,13 @@
                         PyUp
                     </div>
                     <div>
-                        <input id="file_picker" name="file_picker" class="input_element" type="file" multiple onchange="saveSelectedIMGs()">
+                        <input id="file_picker" name="file_picker" class="input_element" type="file" multiple onchange="set_selected_files()">
                         <label id="file_picker_label" class="button_ui" for="file_picker">SELECT FILES</label>
 
-                        <input id="file_uploader" class="input_element" type="button" disabled onclick="uploadButtonClick()">
+                        <input id="file_uploader" class="input_element" type="button" disabled onclick="upload_selected_files()">
                         <label id="upload_button" class="button_ui disabled_button_ui" for="file_uploader">UPLOAD</label>
                     </div>
-                    <div class="ui_info"">
+                    <div id="files_status_indicator" class="ui_info"">
                         0 FILES SELECTED
                     </div>
                 </td>
