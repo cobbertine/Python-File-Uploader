@@ -22,24 +22,25 @@ def make_dir(directory_name):
 def get_upload_page():
     return bottle.static_file(HTML_UPLOAD_PAGE, root=".")
 
-@bottle.get("./"+JS_FILE)
+@bottle.get("/"+JS_FILE)
 def get_js():
     return bottle.static_file(JS_FILE, root=".")
 
-@bottle.get("./"+CSS_FILE)
+@bottle.get("/"+CSS_FILE)
 def get_css():
     return bottle.static_file(CSS_FILE, root=".")
 
 @bottle.post("/upload")
 def upload_file():
     make_dir(DIRECTORY_UPLOAD)
-    file = bottle.request.get(KEY_UPLOADED_FILE)
+    file = bottle.request.files.get(KEY_UPLOADED_FILE)
     file_name = file.filename
     file_name_increment = 0
-    while os.DirEntry.is_file(file_name):
+    while os.path.isfile(DIRECTORY_UPLOAD+"/"+file_name):
         file_name_increment = file_name_increment + 1
         file_name = file.filename + str(file_name_increment)
     file.filename = file_name
+    # For file names, Bottle changes spaces to dashes, and deletes parantheses.
     file.save(DIRECTORY_UPLOAD+"/", overwrite=False)
 
 parser = argparse.ArgumentParser()

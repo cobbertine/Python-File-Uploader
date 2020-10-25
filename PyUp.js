@@ -1,28 +1,40 @@
 const TEXT_FILES_SELECTED_COUNTER = " FILES SELECTED"; // Prepend number to this string
 const TEXT_FILES_UPLOADING = "UPLOADING "; // Append dots to this string
 
-const BUTTON_FILE_PICKER = document.getElementById("file_picker");
-const BUTTON_FILE_UPLOADER = document.getElementById("file_uploader");
-const DIV_FILES_STATUS_INDICATOR = document.getElementById("files_status_indicator");
 
-function return_home(specific_message)
+var BUTTON_FILE_PICKER = null;
+var LABEL_BUTTON_FILE_PICKER = null;
+var BUTTON_FILE_UPLOADER = null;
+var LABEL_BUTTON_FILE_UPLOADER = null;
+var DIV_FILES_STATUS_INDICATOR = null;
+
+window.addEventListener("load", function() 
 {
-    toggle_ui_button(BUTTON_FILE_PICKER, true);
-    toggle_ui_button(BUTTON_FILE_UPLOADER, false);
+    BUTTON_FILE_PICKER = document.getElementById("file_picker");
+    LABEL_BUTTON_FILE_PICKER = document.getElementById("file_picker_label");
+    BUTTON_FILE_UPLOADER = document.getElementById("file_uploader");
+    LABEL_BUTTON_FILE_UPLOADER = document.getElementById("file_uploader_label");
+    DIV_FILES_STATUS_INDICATOR = document.getElementById("files_status_indicator");    
+});
+
+function return_home(specific_message="")
+{
+    toggle_ui_button(BUTTON_FILE_PICKER, LABEL_BUTTON_FILE_PICKER, true);
+    toggle_ui_button(BUTTON_FILE_UPLOADER, LABEL_BUTTON_FILE_UPLOADER, false);
     DIV_FILES_STATUS_INDICATOR.innerText = specific_message.length > 0 ? specific_message : "0" + TEXT_FILES_SELECTED_COUNTER;
 }
 
-function toggle_ui_button(element, is_enabled)
+function toggle_ui_button(input_element, label_element, is_enabled)
 {
 	if(is_enabled == true)
 	{
-		element.removeAttribute("disabled");
-		element.classList.remove("disabledbuttonui");
+		input_element.removeAttribute("disabled");
+		label_element.classList.remove("disabled_button_ui");
 	}
 	else
 	{
-		element.setAttribute("disabled", true);
-		element.classList.add("disabledbuttonui");
+		input_element.setAttribute("disabled", true);
+		label_element.classList.add("disabled_button_ui");
 	}    
 }
 
@@ -33,11 +45,11 @@ function set_selected_files(event)
 
     if(file_list.length > 0)
     {
-        toggle_ui_button(BUTTON_FILE_UPLOADER, true);
+        toggle_ui_button(BUTTON_FILE_UPLOADER, LABEL_BUTTON_FILE_UPLOADER, true);
     }
     else
     {
-        toggle_ui_button(BUTTON_FILE_UPLOADER, false);
+        toggle_ui_button(BUTTON_FILE_UPLOADER, LABEL_BUTTON_FILE_UPLOADER, false);
     }
 }
 
@@ -46,8 +58,8 @@ function upload_selected_files(event)
     let is_pending = false;
     let post_req = null;
     let file_index = 0;
-    toggle_ui_button(BUTTON_FILE_PICKER, false);
-    toggle_ui_button(BUTTON_FILE_UPLOADER, false);
+    toggle_ui_button(BUTTON_FILE_PICKER, LABEL_BUTTON_FILE_PICKER, false);
+    toggle_ui_button(BUTTON_FILE_UPLOADER, LABEL_BUTTON_FILE_UPLOADER, false);
 
     function animate_while_pending(dot_amount)
     {
@@ -77,10 +89,9 @@ function upload_selected_files(event)
         // 200 is OK
         if(post_req.status != 200) 
         {
-            return_home("Server did not return an OK message");
+            return_home("SERVER DID NOT RETURN AN OK MESSAGE");
         }
-
-        if(file_index < BUTTON_FILE_PICKER.files.length)
+        else if(file_index < BUTTON_FILE_PICKER.files.length)
         {
             upload_file();
         }
@@ -93,8 +104,6 @@ function upload_selected_files(event)
     function upload_file()
     {
         let file = BUTTON_FILE_PICKER.files[file_index];
-        //let file_name = file.name.replace(/[^A-z0-9.]/g, "");
-        //let file_url = URL.createObjectURL(file);
 
         post_req = new XMLHttpRequest();
         post_req.onreadystatechange = on_response;
