@@ -5,7 +5,7 @@ import os
 HTML_UPLOAD_PAGE = "PyFiUp.html"
 JS_FILE = "PyFiUp.js"
 CSS_FILE = "PyFiUp.css"
-DIRECTORY_UPLOAD = "./uploads"
+DIRECTORY_UPLOAD = "uploads"
 
 KEY_UPLOADED_FILE = "file"
 
@@ -36,17 +36,19 @@ def upload_file():
     file = bottle.request.files.get(KEY_UPLOADED_FILE)
     file_name = file.filename
     file_name_increment = 0
-    while os.path.isfile(DIRECTORY_UPLOAD+"/"+file_name):
+    while os.path.isfile(os.path.join(DIRECTORY_UPLOAD,file_name)):
         file_name_increment = file_name_increment + 1
         file_name = file.filename + str(file_name_increment)
     file.filename = file_name
     # For file names, Bottle changes spaces to dashes, and deletes parantheses.
-    file.save(DIRECTORY_UPLOAD+"/", overwrite=False)
+    file.save(DIRECTORY_UPLOAD, overwrite=False)
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--interface", metavar="i", type=str, default="0.0.0.0", help="The interface the website will bind to. Defaults to 0.0.0.0 (all interfaces)")
 parser.add_argument("--port", metavar="p", type=int, default=9337, help="The port the website will bind to. Defaults to 9337")
+parser.add_argument("--output", metavar="o", type=str, default=DIRECTORY_UPLOAD, help="The directory path where uploaded files are stored")
 
 args = parser.parse_args()
+DIRECTORY_UPLOAD = os.path.abspath(args.output)
 
 bottle.run(host=args.interface, port=args.port)
