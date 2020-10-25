@@ -2,9 +2,9 @@ import bottle
 import argparse
 import os
 
-HTML_UPLOAD_PAGE = "PyUp.html"
-JS_FILE = "PyUp.js"
-CSS_FILE = "PyUp.css"
+HTML_UPLOAD_PAGE = "PyFiUp.html"
+JS_FILE = "PyFiUp.js"
+CSS_FILE = "PyFiUp.css"
 DIRECTORY_UPLOAD = "./uploads"
 
 KEY_UPLOADED_FILE = "file"
