@@ -1,6 +1,7 @@
 import bottle
 import argparse
 import os
+import functools
 
 HTML_UPLOAD_PAGE = "PyFiUp.html"
 JS_FILE = "PyFiUp.js"
@@ -33,15 +34,20 @@ def get_css():
 @bottle.post("/upload")
 def upload_file():
     make_dir(DIRECTORY_UPLOAD)
-    file = bottle.request.files.get(KEY_UPLOADED_FILE)
-    file_name = file.filename
-    file_name_increment = 0
-    while os.path.isfile(os.path.join(DIRECTORY_UPLOAD,file_name)):
-        file_name_increment = file_name_increment + 1
-        file_name = file.filename + str(file_name_increment)
-    file.filename = file_name
+    uploaded_file = bottle.request.files.get(KEY_UPLOADED_FILE)
+    file_name_test = uploaded_file.filename
+    file_name_test_increment = 0
+    while os.path.isfile(os.path.join(DIRECTORY_UPLOAD, file_name_test)):
+        file_name_test_increment = file_name_test_increment + 1
+        if "." in file_name_test:
+            file_name_separated = uploaded_file.filename.split(".")
+            file_name_separated[0] = file_name_separated[0] + str(file_name_test_increment)
+            file_name_test = functools.reduce(lambda s1, s2 : s1 + "." + s2, file_name_separated)
+        else:
+            file_name_test = uploaded_file.filename + str(file_name_test_increment)
+    uploaded_file.filename = file_name_test
     # For file names, Bottle changes spaces to dashes, and deletes parantheses.
-    file.save(DIRECTORY_UPLOAD, overwrite=False)
+    uploaded_file.save(DIRECTORY_UPLOAD, overwrite=False)
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--interface", metavar="i", type=str, default="0.0.0.0", help="The interface the website will bind to. Defaults to 0.0.0.0 (all interfaces)")
